@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>http://127.0.0.1/index.html</loc></url>
+<url><loc>http://127.0.0.1/vecd.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/bvec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/dvec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/ivec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/uvec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/vec.html</loc></url>
+</urlset>

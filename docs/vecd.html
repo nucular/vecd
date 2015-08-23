@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Module vecd</title>
+		<link rel="stylesheet" type="text/css" href="./styles/ddox.css"/>
+		<link rel="stylesheet" href="./prettify/prettify.css" type="text/css"/>
+		<script type="text/javascript" src="./scripts/jquery.js">/**/</script>
+		<script type="text/javascript" src="./prettify/prettify.js">/**/</script>
+		<script type="text/javascript" src="./scripts/ddox.js">/**/</script>
+	</head>
+	<body onload="prettyPrint(); setupDdox();">
+		<nav id="main-nav">
+						<ul class="tree-view">
+							<li>
+								<a href="./vecd.html" class="selected module">vecd</a>
+							</li>
+						</ul>
+				<noscript>
+					<p style="color: red">The search functionality needs JavaScript enabled</p>
+				</noscript>
+				<div id="symbolSearchPane" style="display: none">
+					<p>
+						<input id="symbolSearch" type="text" placeholder="Search for symbols" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/>
+					</p>
+	<ul id="symbolSearchResults" style="display: none"></ul>
+	<script type="application/javascript" src="./symbols.js"></script>
+	<script type="application/javascript">
+var symbolSearchRootDir = "./";
+$('#symbolSearchPane').show();
+	</script>
+				</div>
+		</nav>
+		<div id="main-contents">
+			<h1>Module vecd</h1>
+			<p> This module implements types and functions to expand and simplify the use of
+ the <a href="http://dlang.org/simd.html">vector extensions</a> of D.
+</p>
+<section>
+</section>
+
+			<section></section>
+			<section>
+				<h2>Templates</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a id="gvec" class="public" href="./vecd/gvec.html">
+								<code>gvec</code>
+							</a>
+						</td>
+						<td> Provides a generic template for vector-like data types.
+</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h2>Aliases</h2>
+				<table>
+					<col class="caption"/>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>
+							<a id="bvec" class="public" href="./vecd/bvec.html">
+								<code>bvec</code>
+							</a>
+						</td>
+						<td>
+<code class="prettyprint lang-d"><a href="./vecd/gvec.html">gvec</a>!(bool,D)</code>
+						</td>
+						<td> A vector of <code class="prettyprint lang-d">bool</code>s.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="dvec" class="public" href="./vecd/dvec.html">
+								<code>dvec</code>
+							</a>
+						</td>
+						<td>
+<code class="prettyprint lang-d"><a href="./vecd/gvec.html">gvec</a>!(double,D)</code>
+						</td>
+						<td> A vector of <code class="prettyprint lang-d">double</code>s.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="ivec" class="public" href="./vecd/ivec.html">
+								<code>ivec</code>
+							</a>
+						</td>
+						<td>
+<code class="prettyprint lang-d"><a href="./vecd/gvec.html">gvec</a>!(int,D)</code>
+						</td>
+						<td> A vector of <code class="prettyprint lang-d">int</code>s.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="uvec" class="public" href="./vecd/uvec.html">
+								<code>uvec</code>
+							</a>
+						</td>
+						<td>
+<code class="prettyprint lang-d"><a href="./vecd/gvec.html">gvec</a>!(uint,D)</code>
+						</td>
+						<td> A vector of <code class="prettyprint lang-d">uint</code>s.
+</td>
+					</tr>
+					<tr>
+						<td>
+							<a id="vec" class="public" href="./vecd/vec.html">
+								<code>vec</code>
+							</a>
+						</td>
+						<td>
+<code class="prettyprint lang-d"><a href="./vecd/gvec.html">gvec</a>!(float,D)</code>
+						</td>
+						<td> A vector of <code class="prettyprint lang-d">float</code>s.
+</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h2>Authors</h2>
+<p>nucular and <a href="https://github.com/nucular/vecd/contributors">contributors</a>
+</p>
+
+			</section>
+			<section>
+				<h2>Copyright</h2>
+<p>Copyright the respective autors, 2015-
+</p>
+
+			</section>
+			<section>
+				<h2>License</h2>
+<p><a href="http://opensource.org/licenses/MIT">MIT License</a>
+</p>
+
+			</section>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+{
+	"name": "vecd",
+	"description": "Vector module expanding the vector extensions of D",
+	"copyright": "Copyright © 2015, nucular",
+	"authors": ["nucular"],
+  "license": "MIT",
+	"dependencies": {
+	}
+}

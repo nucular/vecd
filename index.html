@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>vecd</title>
+    <link rel="stylesheet" type="text/css" href="docs/styles/ddox.css"/>
+    <link rel="stylesheet" href="docs/prettify/prettify.css" type="text/css"/>
+    <script type="text/javascript" src="docs/scripts/jquery.js">/**/</script>
+    <script type="text/javascript" src="docs/prettify/prettify.js">/**/</script>
+    <script type="text/javascript" src="docs/scripts/ddox.js">/**/</script>
+  </head>
+  <body onload="prettyPrint(); setupDdox();">
+    <nav id="main-nav">
+            <ul class="tree-view">
+              <li>
+                <a href="docs/vecd.html" class=" module">vecd</a>
+              </li>
+            </ul>
+        <noscript>
+          <p style="color: red">The search functionality needs JavaScript enabled</p>
+        </noscript>
+        <div id="symbolSearchPane" style="display: none">
+          <p>
+            <input id="symbolSearch" type="text" placeholder="Search for symbols" onchange="performSymbolSearch(24);" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/>
+          </p>
+  <ul id="symbolSearchResults" style="display: none"></ul>
+  <script type="application/javascript" src="docs/symbols.js"></script>
+  <script type="application/javascript">
+var symbolSearchRootDir = "docs/";
+$('#symbolSearchPane').show();
+  </script>
+        </div>
+    </nav>
+    <div id="main-contents">
+      Loading README from GitHub...
+    </div>
+    <script type="application/javascript">
+$.ajax({
+  type: "GET",
+  url: "https://api.github.com/repos/nucular/vecd/readme",
+  headers: {
+    Accept: "application/vnd.github.3.html"
+  },
+  dataType: "html",
+  success: function(data, textStatus, jqXHR) {
+    $("#main-contents").html(data);
+  },
+  error: function(jqXHR, textStatus, errorThrown) {
+    $("#main-contents").html("Could not load README from GitHub :(");
+  }
+});
+    </script>
+  </body>
+</html>

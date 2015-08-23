@@ -2,7 +2,7 @@
 * This module implements types and functions to expand and simplify the use of
 * the $(LINK2 http://dlang.org/simd.html, vector extensions) of D.
 *
-* $(LINK2 http://nucular.github.io/vecd, Website) &middot; $(LINK2 http://nucular.github.io/vecd/docs/vecd.html, Online documentation)
+* $(LINK2 http://github.com/nucular/vecd, GitHub) &middot; $(LINK2 http://nucular.github.io/vecd/docs/vecd.html, Online documentation)
 * Copyright: Copyright the respective autors, 2015-
 * License: $(LINK2 http://opensource.org/licenses/MIT, MIT License)
 * Authors: nucular and $(LINK2 https://github.com/nucular/vecd/contributors, contributors)

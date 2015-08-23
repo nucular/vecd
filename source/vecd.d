@@ -12,6 +12,7 @@ module vecd;
 public import core.simd;
 
 import std.traits;
+import std.stdio;
 
 /**
 * Provides a generic template for vector-like data types.
@@ -26,14 +27,40 @@ import std.traits;
 * Macros:
 *   GVEC = A vector of `$1`s.
 */
-template gvec(T, uint D)
+struct gvec(T, uint D)
 {
   mixin(
     "static if (__traits(compiles, "~T.stringof~D.stringof~"))\n"
-    ~ "  alias gvec = "~T.stringof~D.stringof~";\n"
+    ~ "  " ~ T.stringof ~ D.stringof ~ " data;\n"
     ~ "else\n"
-    ~ "  alias gvec = "~T.stringof~"["~D.stringof~"];"
+    ~ "  " ~ T.stringof ~ "[" ~ D.stringof ~ "] data;"
   );
+
+  gvec!(T, D) opUnary(string op)()
+  {
+    mixin(
+      "static if (__traits(compiles, " ~ op ~ "data))\n"
+      ~ "  return " ~ op ~ "data\n"
+      ~ "else\n"
+      ~ "  return " ~ op ~ "data[];"
+    );
+  }
+
+  gvec!(T, D) opBinary(string op)(gvec!(T, D) that)
+  {
+    mixin(
+      "static if (__traits(compiles, data " ~ op ~ " that.data))\n"
+      ~ "{\n"
+      ~ "  return data " ~ op ~ " that.data;\n"
+      ~ "}\n"
+      ~ "else\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data[] " ~ op ~ " that.data[];\n"
+      ~ "  return gvec!(T, D)(tmp);\n"
+      ~ "}\n"
+    );
+  }
+
 }
 
 /**

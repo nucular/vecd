@@ -5,7 +5,12 @@
 <url><loc>http://127.0.0.1/vecd/bvec.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/dvec.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opBinary.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opBinary.opBinary.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opUnary.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opUnary.opUnary.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/ivec.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/NotSupportedError.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/uvec.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/vec.html</loc></url>
 </urlset>

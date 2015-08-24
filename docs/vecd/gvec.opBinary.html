@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Struct gvec</title>
+		<title>Template gvec.opBinary</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,50 +32,50 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>Struct gvec</h1>
+			<h1>Template gvec.opBinary</h1>
 			<section>
-				<p> Provides a generic template for vector-like data types.
+				<p> Implements all binary operators on two vectors of the same length and type.
 </p>
 <section>
-<p> Makes use of SIMD types if available and falls back to a static-sized array
- if not.
-</p>
-
 </section>
 
 					<section>
-						<h3>Templates</h3>
+						<h2>Arguments</h2>
+						<pre class="code prettyprint lang-d prototype">
+template opBinary(string op);</pre>
+					</section>
+					<section>
+						<h3>Functions</h3>
 						<table>
 							<col class="caption"/>
 							<tr>
-								<th>Name</th>
+								<th>Function name</th>
 								<th>Description</th>
 							</tr>
 							<tr>
 								<td>
-									<a href="../vecd/gvec.opBinary.html" class="public">
-										<code>opBinary</code>
-									</a>
+									<a href="../vecd/gvec.opBinary.opBinary.html">opBinary</a>
 								</td>
-								<td> Implements all binary operators on two vectors of the same length and type.
-</td>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.opUnary.html" class="public">
-										<code>opUnary</code>
-									</a>
-								</td>
-								<td> Implements all unary operators on a vector.
-</td>
+								<td></td>
 							</tr>
 						</table>
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="T">T</td><td> The simple type of the elements of the vector</td></tr>
-<tr><td id="D">D</td><td> The number of dimensions/length of the vector</td></tr>
+<tr><td id="op">op</td><td> The operator</td></tr>
+<tr><td id="that">that</td><td> The second vector</td></tr>
 </table>
+</section>
+<section><h3>Example</h3>
+
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = {[1, 2]};
+<a href="../vecd/vec.html">vec</a>!2 b = {[3, 4]};
+assert(a + b == <a href="../vecd/vec.html">vec</a>!2([4, 6]));
+assert(a - b == <a href="../vecd/vec.html">vec</a>!2([-2, -2]));
+assert(a * b == <a href="../vecd/vec.html">vec</a>!2([3, 8]));
+assert(b / a == <a href="../vecd/vec.html">vec</a>!2([3, 2]));
+
+</pre>
 </section>
 
 			</section>

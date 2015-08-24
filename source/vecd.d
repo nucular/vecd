@@ -11,6 +11,7 @@
 module vecd;
 public import core.simd;
 
+import std.math;
 import std.traits;
 
 /**
@@ -48,13 +49,97 @@ struct gvec(T, uint D)
     ~ "  " ~ T.stringof ~ "[" ~ D.stringof ~ "] data;"
   );
 
-  const uint length = D;
-  alias dim = length;
+  /**
+  * Exposes the number of dimensions of the vector.
+  */
+  uint dim = D;
 
   alias x = this[0];
   alias y = this[1];
   alias z = this[2];
   alias w = this[3];
+
+  /**
+  * Initialize all dimensions of the vector to a value.
+  *
+  * Params:
+  *   v = The value
+  */
+  this(T v)
+  {
+    this = v;
+  }
+  ///
+  unittest
+  {
+    vec!2 a = 1.5;
+    assert(a[0] == 1.5 && a[1] == 1.5);
+  }
+
+  /**
+  * Initialize the vector to an array of values up to either the length of the
+  * array or the number of dimensions of the vector.
+  *
+  * Params:
+  *   v = The array of values
+  */
+  this(T[] v)
+  {
+    for (size_t i; i < v.length && i < this.dim; i++)
+    {
+      this[i] = v[i];
+    }
+  }
+  ///
+  unittest
+  {
+    vec!2 a = [-1, 1];
+    assert(a[0] == -1 && a[1] == 1);
+    vec!2 b = [-1, 1, 2];
+    assert(b.dim == 2 && b[0] == -1 && b[1] == 1);
+  }
+
+  /**
+  * Initialize the vector to the contents of another vector of the same type
+  * and size.
+  *
+  * Params:
+  *   v = The vector
+  */
+  this(gvec!(T, D) v)
+  {
+    for (size_t i; i < v.dim && i < this.dim; i++)
+    {
+      this[i] = v[i];
+    }
+  }
+  ///
+  unittest
+  {
+    vec!3 a = [-1, 0, 1];
+    vec!3 b = a;
+    assert(a == b);
+  }
+
+  /**
+  * Returns a duplicate of the vector.
+  */
+  gvec!(T, D) dup()
+  {
+    return gvec!(T, D)(this);
+  }
+  ///
+  unittest
+  {
+    vec!2 a = [0, 0];
+    vec!2 b = a.dup;
+    a[0] = 1;
+    b[1] = 2;
+    assert(
+      a[0] == 1 && a[1] == 0 &&
+      b[0] == 0 && b[1] == 2
+    );
+  }
 
   /**
   * Implements all unary operators on a vector.
@@ -88,7 +173,7 @@ struct gvec(T, uint D)
   ///
   unittest
   {
-    vec!3 a = {[-1f, 0f, 1f]};
+    vec!3 a = [-1f, 0f, 1f];
     assert(-a == vec!3([1f, -0f, -1f]));
   }
 
@@ -125,12 +210,53 @@ struct gvec(T, uint D)
   ///
   unittest
   {
-    vec!2 a = {[1, 2]};
-    vec!2 b = {[3, 4]};
+    vec!2 a = [1, 2];
+    vec!2 b = [3, 4];
     assert(a + b == vec!2([4, 6]));
     assert(a - b == vec!2([-2, -2]));
     assert(a * b == vec!2([3, 8]));
     assert(b / a == vec!2([3, 2]));
+  }
+
+  /**
+  * Implements all binary operators with a value of the type of the vector or a
+  * type that can be casted to it implicitely.
+  *
+  * Params:
+  *   op = The operator
+  *   that = The second vector
+  */
+  gvec!(T, D) opBinary(string op)(T that)
+  {
+    mixin(
+      "static if (__traits(compiles, data " ~ op ~ " that))\n"
+      ~ "{\n"
+      ~ "  return gvec!(T, D)(data " ~ op ~ " that);\n"
+      ~ "}\n"
+      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that))\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data[] " ~ op ~ " that;\n"
+      ~ "  return gvec!(T, D)(tmp);\n"
+      ~ "}\n"
+      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that))\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data.array[] " ~ op ~ " that;\n"
+      ~ "  return gvec!(T, D)(tmp);\n"
+      ~ "}\n"
+      ~ "else\n"
+      ~ "{\n"
+      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
+      ~ "}"
+    );
+  }
+  ///
+  unittest
+  {
+    vec!2 a = [1, 2];
+    assert(a + 2 == vec!2([3, 4]));
+    assert(a - 2 == vec!2([-1, 0]));
+    assert(a * 2 == vec!2([2, 4]));
+    assert(a / 2 == vec!2([0.5, 1]));
   }
 
   /**
@@ -167,9 +293,88 @@ struct gvec(T, uint D)
   }
   unittest
   {
-    vec!4 a = {[0, 1, 2, 3]};
+    vec!4 a = [0, 1, 2, 3];
     a *= a;
     assert(a == vec!4([0, 1, 4, 9]));
+  }
+
+  /**
+  * Implements all op assignment operators with a value of the type of the
+  * vector or a type that can be casted to it implicitely.
+  *
+  * Params:
+  *   op = The operator
+  *   that = The value
+  */
+  gvec!(T, D) opOpAssign(string op)(T that)
+  {
+    mixin(
+      "static if (__traits(compiles, data " ~ op ~ " that))\n"
+      ~ "{\n"
+      ~ "  data = data " ~ op ~ " that;"
+      ~ "}\n"
+      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that))\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data[] " ~ op ~ " that;\n"
+      ~ "  data = tmp;\n"
+      ~ "}\n"
+      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that))\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data.array[] " ~ op ~ " that;\n"
+      ~ "  data.array = tmp;\n"
+      ~ "}\n"
+      ~ "else\n"
+      ~ "{\n"
+      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
+      ~ "}"
+    );
+    return this;
+  }
+  unittest
+  {
+    vec!4 a = [0, 1, 2, 3];
+    a *= 2;
+    assert(a == vec!4([0, 2, 4, 6]));
+  }
+
+  /**
+  * Implements the assignment operator with a value of the type of the
+  * vector or a type that can be casted to it implicitely.
+  *
+  * Params:
+  *   v = The value all dimensions will be set to
+  */
+  void opAssign(T v)
+  {
+    for (size_t i = 0; i < dim; i++)
+      this[i] = v;
+  }
+  ///
+  unittest
+  {
+    vec!2 a;
+    a = 1;
+    assert(a[0] == 1 && a[1] == 1);
+  }
+
+  /**
+  * Implements the assignment operator with an array of the type of the
+  * vector or a type that can be casted to it implicitely.
+  *
+  * Params:
+  *   v = The value all dimensions will be set to
+  */
+  void opAssign(T[] v)
+  {
+    for (size_t i = 0; i < v.length && i < dim; i++)
+      this[i] = v[i];
+  }
+  ///
+  unittest
+  {
+    vec!2 a;
+    a = [1, 2, 3];
+    assert(a[0] == 1 && a[1] == 2);
   }
 
   /**
@@ -190,7 +395,7 @@ struct gvec(T, uint D)
   ///
   unittest
   {
-    vec!3 a = {[2, 1, 0]};
+    vec!3 a = [2, 1, 0];
     assert(a[0] == 2);
     assert(a[1] == 1);
     assert(a[2] == 0);
@@ -238,11 +443,10 @@ struct gvec(T, uint D)
   ///
   unittest
   {
-    vec!2 a = {[-1, 1]};
+    vec!2 a = [-1, 1];
     a[0] += 2;
     assert(a[0] == 1);
   }
-
 
   /**
   * Implements the dollar operator.
@@ -254,7 +458,7 @@ struct gvec(T, uint D)
   ///
   unittest
   {
-    vec!3 a = {[3, 2, 1]};
+    vec!3 a = [3, 2, 1];
     assert(a[$-1] == 1);
     assert(a[$-2] == 2);
     assert(a[$-3] == 3);
@@ -267,6 +471,50 @@ struct gvec(T, uint D)
   {
     import std.conv;
     return to!string(data);
+  }
+  ///
+  unittest
+  {
+    vec!4 a = [1, 3, 3, 7];
+    assert(a.toString() == "[1, 3, 3, 7]");
+  }
+
+  /**
+  * Normalizes the vector in-place.
+  */
+  void normalize()
+  {
+    this /= this.length();
+  }
+
+  /**
+  * Returns a normalized copy of the vector.
+  */
+  gvec!(T, D) normalized()
+  {
+    return this.dup / this.length();
+  }
+
+  /**
+  * Returns the length/magnitude of the vector.
+  */
+  double length()
+  {
+    double l = 0.0f;
+    for (size_t i = 0; i < dim; i++)
+      l += this[i]^^2;
+    return sqrt(l);
+  }
+
+  /**
+  * Returns the squared length/magnitude of the vector.
+  */
+  double length2()
+  {
+    double l = 0.0f;
+    for (size_t i = 0; i < dim; i++)
+      l += this[i]^^2;
+    return l;
   }
 }
 

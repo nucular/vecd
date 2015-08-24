@@ -44,12 +44,135 @@ $('#symbolSearchPane').show();
 </section>
 
 					<section>
+						<h3>Constructors</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize all dimensions of the vector to a value.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize the vector to an array of values up to either the <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the
+ array or the number of dimensions of the vector.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize the vector to the contents of another vector of the same type
+ and size.
+</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h3>Fields</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Type</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.dim.html" class="public"><code>dim</code></a>
+								</td>
+								<td class="typecol"><code class="prettyprint lang-d">uint</code></td>
+								<td> Exposes the number of dimensions of the vector.
+</td>
+							</tr>
+						</table>
+					</section>
+					<section>
 						<h3>Methods</h3>
 						<table>
 							<col class="caption"/>
 							<tr>
 								<th>Name</th>
 								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.dup.html" class="public">
+										<code>dup</code>
+									</a>
+								</td>
+								<td> Returns a duplicate of the vector.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.length.html" class="public">
+										<code>length</code>
+									</a>
+								</td>
+								<td> Returns the <code class="prettyprint lang-d">length</code>/magnitude of the vector.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.length2.html" class="public">
+										<code>length2</code>
+									</a>
+								</td>
+								<td> Returns the squared <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>/magnitude of the vector.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.normalize.html" class="public">
+										<code>normalize</code>
+									</a>
+								</td>
+								<td> Normalizes the vector in-place.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.normalized.html" class="public">
+										<code>normalized</code>
+									</a>
+								</td>
+								<td> Returns a <code class="prettyprint lang-d">normalized</code> copy of the vector.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opAssign.html" class="public">
+										<code>opAssign</code>
+									</a>
+								</td>
+								<td> Implements the assignment operator with a value of the type of the
+ vector or a type that can be casted to it implicitely.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opAssign.html" class="public">
+										<code>opAssign</code>
+									</a>
+								</td>
+								<td> Implements the assignment operator with an array of the type of the
+ vector or a type that can be casted to it implicitely.
+</td>
 							</tr>
 							<tr>
 								<td>
@@ -94,7 +217,17 @@ $('#symbolSearchPane').show();
 										<code>opBinary</code>
 									</a>
 								</td>
-								<td> Implements all binary operators on two vectors of the same length and type.
+								<td> Implements all binary operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> and type.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opBinary.html" class="public">
+										<code>opBinary</code>
+									</a>
+								</td>
+								<td> Implements all binary operators with a value of the type of the vector or a
+ type that can be casted to it implicitely.
 </td>
 							</tr>
 							<tr>
@@ -112,8 +245,18 @@ $('#symbolSearchPane').show();
 										<code>opOpAssign</code>
 									</a>
 								</td>
-								<td> Implements all op assignment operators on two vectors of the same length
+								<td> Implements all op assignment operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
  and type.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opOpAssign.html" class="public">
+										<code>opOpAssign</code>
+									</a>
+								</td>
+								<td> Implements all op assignment operators with a value of the type of the
+ vector or a type that can be casted to it implicitely.
 </td>
 							</tr>
 							<tr>
@@ -130,7 +273,7 @@ $('#symbolSearchPane').show();
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
 <tr><td id="T">T</td><td> The simple type of the elements of the vector</td></tr>
-<tr><td id="D">D</td><td> The number of dimensions/length of the vector</td></tr>
+<tr><td id="D">D</td><td> The number of dimensions/<a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the vector</td></tr>
 </table>
 </section>
 

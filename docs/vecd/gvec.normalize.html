@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Function gvec.opIndex</title>
+		<title>Function gvec.normalize</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,34 +32,16 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>Function gvec.opIndex</h1>
+			<h1>Function gvec.normalize</h1>
 			<section>
-				<p> Implements the index operator.
+				<p> Normalizes the vector in-place.
 </p>
-<section>
-</section>
 
 					<section>
 						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
-T opIndex(
-&nbsp;&nbsp;size_t i
-);</pre>
+void normalize();</pre>
 					</section>
-<section><h3>Parameters</h3>
-<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="i">i</td><td> The index</td></tr>
-</table>
-</section>
-<section><h3>Example</h3>
-
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!3 a = [2, 1, 0];
-assert(a[0] == 2);
-assert(a[1] == 1);
-assert(a[2] == 0);
-
-</pre>
-</section>
 
 			</section>
 			<section>

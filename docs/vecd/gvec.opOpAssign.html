@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Template gvec.opOpAssign</title>
+		<title>gvec.opOpAssign - multiple declarations</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,9 +32,14 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>Template gvec.opOpAssign</h1>
+			<h1>gvec.opOpAssign - multiple declarations</h1>
+			<ul>
+				<li>Template gvec.opOpAssign</li>
+				<li>Template gvec.opOpAssign</li>
+			</ul>
 			<section>
-				<p> Implements all op assignment operators on two vectors of the same length
+				<h2>Template gvec.opOpAssign</h2>
+				<p> Implements all op assignment operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
  and type.
 </p>
 <section>
@@ -65,6 +70,43 @@ template opOpAssign(string op);</pre>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
 <tr><td id="op">op</td><td> The operator</td></tr>
 <tr><td id="that">that</td><td> The second vector</td></tr>
+</table>
+</section>
+
+			</section>
+			<section>
+				<h2>Template gvec.opOpAssign</h2>
+				<p> Implements all op assignment operators with a value of the type of the
+ vector or a type that can be casted to it implicitely.
+</p>
+<section>
+</section>
+
+					<section>
+						<h2>Arguments</h2>
+						<pre class="code prettyprint lang-d prototype">
+template opOpAssign(string op);</pre>
+					</section>
+					<section>
+						<h3>Functions</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Function name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opOpAssign.opOpAssign.html">opOpAssign</a>
+								</td>
+								<td></td>
+							</tr>
+						</table>
+					</section>
+<section><h3>Parameters</h3>
+<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
+<tr><td id="op">op</td><td> The operator</td></tr>
+<tr><td id="that">that</td><td> The value</td></tr>
 </table>
 </section>
 

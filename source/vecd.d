@@ -74,7 +74,7 @@ struct gvec(T, uint D)
       ~ "  T[D] tmp = " ~ op ~ "data[];\n"
       ~ "  return gvec!(T, D)(tmp);\n"
       ~ "}\n"
-      ~ "else static if (hasMember!(typeof(data), \"array\"))\n"
+      ~ "else static if (__traits(compiles, " ~ op ~ "data.array[]))\n"
       ~ "{\n"
       ~ "  T[D] tmp = " ~ op ~ "data.array[];\n"
       ~ "  return gvec!(T, D)(tmp);\n"
@@ -104,14 +104,14 @@ struct gvec(T, uint D)
     mixin(
       "static if (__traits(compiles, data " ~ op ~ " that.data))\n"
       ~ "{\n"
-      ~ "  return  gvec!(T, D)(data " ~ op ~ " that.data);\n"
+      ~ "  return gvec!(T, D)(data " ~ op ~ " that.data);\n"
       ~ "}\n"
       ~ "else static if (__traits(compiles, data[] " ~ op ~ " that.data[]))\n"
       ~ "{\n"
       ~ "  T[D] tmp = data[] " ~ op ~ " that.data[];\n"
       ~ "  return gvec!(T, D)(tmp);\n"
       ~ "}\n"
-      ~ "else static if (hasMember!(typeof(data), \"array\"))\n"
+      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that.data.array[]))\n"
       ~ "{\n"
       ~ "  T[D] tmp = data.array[] " ~ op ~ " that.data.array[];\n"
       ~ "  return gvec!(T, D)(tmp);\n"
@@ -131,6 +131,45 @@ struct gvec(T, uint D)
     assert(a - b == vec!2([-2, -2]));
     assert(a * b == vec!2([3, 8]));
     assert(b / a == vec!2([3, 2]));
+  }
+
+  /**
+  * Implements all op assignment operators on two vectors of the same length
+  * and type.
+  *
+  * Params:
+  *   op = The operator
+  *   that = The second vector
+  */
+  gvec!(T, D) opOpAssign(string op)(gvec!(T, D) that)
+  {
+    mixin(
+      "static if (__traits(compiles, data " ~ op ~ " that.data))\n"
+      ~ "{\n"
+      ~ "  data = data " ~ op ~ " that.data;"
+      ~ "}\n"
+      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that.data[]))\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data[] " ~ op ~ " that.data[];\n"
+      ~ "  data = tmp;\n"
+      ~ "}\n"
+      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that.data.array[]))\n"
+      ~ "{\n"
+      ~ "  T[D] tmp = data.array[] " ~ op ~ " that.data.array[];\n"
+      ~ "  data.array = tmp;\n"
+      ~ "}\n"
+      ~ "else\n"
+      ~ "{\n"
+      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
+      ~ "}"
+    );
+    return this;
+  }
+  unittest
+  {
+    vec!4 a = {[0, 1, 2, 3]};
+    a *= a;
+    assert(a == vec!4([0, 1, 4, 9]));
   }
 
   /**
@@ -184,6 +223,26 @@ struct gvec(T, uint D)
     assert(a[1] == 1);
     assert(a[2] == 0);
   }
+
+  /**
+  * Implements all index op assignment operators.
+  *
+  * Params:
+  *   c = The rvalue of the assignment
+  *   i = The index the rvalue is op-assigned to
+  */
+  T opIndexOpAssign(string op)(T c, size_t i)
+  {
+    mixin("return this[i] = this[i] " ~ op ~ " c;");
+  }
+  ///
+  unittest
+  {
+    vec!2 a = {[-1, 1]};
+    a[0] += 2;
+    assert(a[0] == 1);
+  }
+
 
   /**
   * Implements the dollar operator.

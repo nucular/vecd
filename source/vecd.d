@@ -48,6 +48,14 @@ struct gvec(T, uint D)
     ~ "  " ~ T.stringof ~ "[" ~ D.stringof ~ "] data;"
   );
 
+  const uint length = D;
+  alias dim = length;
+
+  alias x = this[0];
+  alias y = this[1];
+  alias z = this[2];
+  alias w = this[3];
+
   /**
   * Implements all unary operators on a vector.
   *
@@ -123,6 +131,74 @@ struct gvec(T, uint D)
     assert(a - b == vec!2([-2, -2]));
     assert(a * b == vec!2([3, 8]));
     assert(b / a == vec!2([3, 2]));
+  }
+
+  /**
+  * Implements the index operator.
+  *
+  * Params:
+  *   i = The index
+  */
+  T opIndex(size_t i)
+  {
+    static if (__traits(compiles, data[i]))
+      return data[i];
+    else static if (__traits(compiles, data.array[i]))
+      return data.array[i];
+    else
+      throw new NotSupportedError("Index operator");
+  }
+  ///
+  unittest
+  {
+    vec!3 a = {[2, 1, 0]};
+    assert(a[0] == 2);
+    assert(a[1] == 1);
+    assert(a[2] == 0);
+  }
+
+  /**
+  * Implements the index assignment operator.
+  *
+  * Params:
+  *   v = The value
+  *   i = The index the value is assigned to
+  */
+  T opIndexAssign(T v, size_t i)
+  {
+    static if (__traits(compiles, data[i]))
+      return data[i] = v;
+    else static if (__traits(compiles, data.array[i]))
+      return data.array[i] = v;
+    else
+      throw new NotSupportedError("Index assignment operator");
+  }
+  ///
+  unittest
+  {
+    vec!3 a;
+    a[0] = 2;
+    a[1] = 1;
+    a[2] = 0;
+    assert(a[0] == 2);
+    assert(a[1] == 1);
+    assert(a[2] == 0);
+  }
+
+  /**
+  * Implements the dollar operator.
+  **/
+  uint opDollar()
+  {
+    return D;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = {[3, 2, 1]};
+    assert(a[$-1] == 1);
+    assert(a[$-2] == 2);
+    assert(a[$-3] == 3);
   }
 
   /*

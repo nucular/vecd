@@ -7,6 +7,9 @@
 <url><loc>http://127.0.0.1/vecd/gvec.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opBinary.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opBinary.opBinary.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opDollar.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opIndex.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opIndexAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opUnary.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opUnary.opUnary.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/ivec.html</loc></url>

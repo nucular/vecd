@@ -2,5 +2,7 @@
 dub.selections.json
 docs.json
 __dummy.html
+__test__library__*
+vecd.lib
 *.o
 *.obj

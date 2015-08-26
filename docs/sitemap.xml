@@ -9,8 +9,11 @@
 <url><loc>http://127.0.0.1/vecd/gvec.dup.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.length.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.length2.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.mag.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.mag2.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.normalize.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.normalized.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opBinary.html</loc></url>
@@ -28,6 +31,7 @@
 <url><loc>http://127.0.0.1/vecd/gvec.opOpAssign.opOpAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opUnary.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opUnary.opUnary.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>

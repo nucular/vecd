@@ -57,7 +57,17 @@ $('#symbolSearchPane').show();
 										<code>this</code>
 									</a>
 								</td>
-								<td> Initialize all dimensions of the vector to a value.
+								<td> Initialize all components of the vector to a value.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize the vector to an array of the same type with the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> as
+ the vector.
 </td>
 							</tr>
 							<tr>
@@ -67,7 +77,7 @@ $('#symbolSearchPane').show();
 									</a>
 								</td>
 								<td> Initialize the vector to an array of values up to either the <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the
- array or the number of dimensions of the vector.
+ array or the number of components of the vector.
 </td>
 							</tr>
 							<tr>
@@ -78,25 +88,6 @@ $('#symbolSearchPane').show();
 								</td>
 								<td> Initialize the vector to the contents of another vector of the same type
  and size.
-</td>
-							</tr>
-						</table>
-					</section>
-					<section>
-						<h3>Fields</h3>
-						<table>
-							<col class="caption"/>
-							<tr>
-								<th>Name</th>
-								<th>Type</th>
-								<th>Description</th>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.dim.html" class="public"><code>dim</code></a>
-								</td>
-								<td class="typecol"><code class="prettyprint lang-d">uint</code></td>
-								<td> Exposes the number of dimensions of the vector.
 </td>
 							</tr>
 						</table>
@@ -171,7 +162,18 @@ $('#symbolSearchPane').show();
 									</a>
 								</td>
 								<td> Implements the assignment operator with an array of the type of the
- vector or a type that can be casted to it implicitely.
+ vector (or a type that can be casted to it implicitely).
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opAssign.html" class="public">
+										<code>opAssign</code>
+									</a>
+								</td>
+								<td> Implements the assignment operator with an array of the type of the
+ vector (or a type that can be casted to it implicitely) and the same
+ number of components.
 </td>
 							</tr>
 							<tr>
@@ -199,6 +201,34 @@ $('#symbolSearchPane').show();
 									</a>
 								</td>
 								<td> Implements the index assignment operator.
+</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h3>Aliases</h3>
+						<table>
+							<col class="caption"/>
+							<tr>
+								<th>Name</th>
+								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.mag.html" class="public">
+										<code>mag</code>
+									</a>
+								</td>
+								<td>Alias for <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.mag2.html" class="public">
+										<code>mag2</code>
+									</a>
+								</td>
+								<td>Alias for <a href="../vecd/gvec.length2.html"><code class="prettyprint lang-d">length2</code></a>
 </td>
 							</tr>
 						</table>
@@ -273,7 +303,7 @@ $('#symbolSearchPane').show();
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
 <tr><td id="T">T</td><td> The simple type of the elements of the vector</td></tr>
-<tr><td id="D">D</td><td> The number of dimensions/<a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the vector</td></tr>
+<tr><td id="D">D</td><td> The number of components of the vector</td></tr>
 </table>
 </section>
 

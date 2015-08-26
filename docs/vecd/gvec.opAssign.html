@@ -36,6 +36,7 @@ $('#symbolSearchPane').show();
 			<ul>
 				<li>Function gvec.opAssign</li>
 				<li>Function gvec.opAssign</li>
+				<li>Function gvec.opAssign</li>
 			</ul>
 			<section>
 				<h2>Function gvec.opAssign</h2>
@@ -54,7 +55,7 @@ void opAssign(
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="v">v</td><td> The value all dimensions will be set to</td></tr>
+<tr><td id="v">v</td><td> The value all components will be set to</td></tr>
 </table>
 </section>
 <section><h3>Example</h3>
@@ -70,7 +71,7 @@ assert(a[0] == 1 && a[1] == 1);
 			<section>
 				<h2>Function gvec.opAssign</h2>
 				<p> Implements the assignment operator with an array of the type of the
- vector or a type that can be casted to it implicitely.
+ vector (or a type that can be casted to it implicitely).
 </p>
 <section>
 </section>
@@ -84,13 +85,44 @@ void opAssign(
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="v">v</td><td> The value all dimensions will be set to</td></tr>
+<tr><td id="v">v</td><td> The array containing the components</td></tr>
 </table>
 </section>
 <section><h3>Example</h3>
 
 <pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a;
 a = [1, 2, 3];
+assert(a[0] == 1 && a[1] == 2);
+
+</pre>
+</section>
+
+			</section>
+			<section>
+				<h2>Function gvec.opAssign</h2>
+				<p> Implements the assignment operator with an array of the type of the
+ vector (or a type that can be casted to it implicitely) and the same
+ number of components.
+</p>
+<section>
+</section>
+
+					<section>
+						<h3>Prototype</h3>
+						<pre class="code prettyprint lang-d prototype">
+void opAssign(
+&nbsp;&nbsp;T[D] v
+);</pre>
+					</section>
+<section><h3>Parameters</h3>
+<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
+<tr><td id="v">v</td><td> The array containing the components</td></tr>
+</table>
+</section>
+<section><h3>Example</h3>
+
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a;
+a = [1, 2];
 assert(a[0] == 1 && a[1] == 2);
 
 </pre>

@@ -42,6 +42,15 @@ $('#symbolSearchPane').show();
 						<pre class="code prettyprint lang-d prototype">
 <a href="../vecd/gvec.html">gvec</a>!(T,D) normalized();</pre>
 					</section>
+<section><h3>Example</h3>
+
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [1, 2];
+<a href="../vecd/vec.html">vec</a>!2 b = a;
+b.normalize();
+assert(a.normalized == b);
+
+</pre>
+</section>
 
 			</section>
 			<section>

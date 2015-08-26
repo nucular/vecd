@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Alias vec</title>
+		<title>Alias gvec.mag</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,21 +32,21 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>Alias vec</h1>
+			<h1>Alias gvec.mag</h1>
 			<section>
-				<p> A vector of <code class="prettyprint lang-d">float</code>s.
+				<p>Alias for <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
 </p>
 
 					<section>
 						<h3>Declaration</h3>
 						<pre class="code prettyprint lang-d prototype">
-alias vec(uint D) = <code class="prettyprint lang-d"><a href="../vecd/gvec.html">gvec</a>!(float,D)</code>;</pre>
+struct <a href="../vecd/gvec.html">gvec</a>
+{
+	// ...
+	alias mag = <code class="prettyprint lang-d">length</code>;
+	// ...
+}</pre>
 					</section>
-<section><h3>Parameters</h3>
-<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="D">D</td><td> The number of components of the vector</td></tr>
-</table>
-</section>
 
 			</section>
 			<section>

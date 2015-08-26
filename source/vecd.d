@@ -38,29 +38,53 @@ class NotSupportedError : Error
 *
 * Params:
 *   T = The simple type of the elements of the vector
-*   D = The number of dimensions/length of the vector
+*   D = The number of components of the vector
 */
 struct gvec(T, uint D)
 {
   mixin(
     "static if (is("~T.stringof~D.stringof~"))\n"
+    ~ "{\n"
     ~ "  " ~ T.stringof ~ D.stringof ~ " data;\n"
+    ~ "  enum bool simd = true;\n"
+    ~ "}\n"
     ~ "else\n"
+    ~ "{\n"
     ~ "  " ~ T.stringof ~ "[" ~ D.stringof ~ "] data;"
+    ~ "  enum bool simd = false;\n"
+    ~ "}"
   );
 
-  /**
-  * Exposes the number of dimensions of the vector.
-  */
-  uint dim = D;
+  /// Exposes the number of components of the vector.
+  enum uint dim = D;
 
-  alias x = this[0];
-  alias y = this[1];
-  alias z = this[2];
-  alias w = this[3];
+  /// The X-component of the vector.
+  static if (D >= 1)
+  {
+    @property x() { static if (simd) return data.array[0]; else return data[0]; }
+    @property x(T v) { static if (simd) data.array[0] = v; else data[0] = v; }
+  }
+  static if (D >= 2)
+  {
+    /// The Y-component of the vector.
+    @property y() { static if (simd) return data.array[1]; else return data[1]; }
+    @property y(T v) { static if (simd) data.array[1] = v; else data[1] = v; }
+  }
+  static if (D >= 3)
+  {
+    /// The Z-component of the vector.
+    @property z() { static if (simd) return data.array[2]; else return data[2]; }
+    @property z(T v) { static if (simd) data.array[2] = v; else data[2] = v; }
+  }
+  static if (D >= 4)
+  {
+    /// The W-component of the vector.
+    @property w() { static if (simd) return data.array[3]; else return data[3]; }
+    @property w(T v) { static if (simd) data.array[3] = v; else data[3] = v; }
+  }
 
   /**
-  * Initialize all dimensions of the vector to a value.
+  * Initialize all components of the vector to a value.
   *
   * Params:
   *   v = The value
@@ -77,26 +101,39 @@ struct gvec(T, uint D)
   }
 
   /**
-  * Initialize the vector to an array of values up to either the length of the
-  * array or the number of dimensions of the vector.
+  * Initialize the vector to an array of the same type with the same length as
+  * the vector.
   *
   * Params:
   *   v = The array of values
   */
-  this(T[] v)
+  this(T[D] v)
   {
-    for (size_t i; i < v.length && i < this.dim; i++)
-    {
-      this[i] = v[i];
-    }
+    this = v;
   }
   ///
   unittest
   {
     vec!2 a = [-1, 1];
     assert(a[0] == -1 && a[1] == 1);
-    vec!2 b = [-1, 1, 2];
-    assert(b.dim == 2 && b[0] == -1 && b[1] == 1);
+  }
+
+  /**
+  * Initialize the vector to an array of values up to either the length of the
+  * array or the number of components of the vector.
+  *
+  * Params:
+  *   v = The array of values
+  */
+  this(T[] v)
+  {
+    this = v[0..D];
+  }
+  ///
+  unittest
+  {
+    vec!2 a = [-1, 1, 2];
+    assert(a.dim == 2 && a[0] == -1 && a[1] == 1);
   }
 
   /**
@@ -108,10 +145,7 @@ struct gvec(T, uint D)
   */
   this(gvec!(T, D) v)
   {
-    for (size_t i; i < v.dim && i < this.dim; i++)
-    {
-      this[i] = v[i];
-    }
+    this = v;
   }
   ///
   unittest
@@ -342,12 +376,20 @@ struct gvec(T, uint D)
   * vector or a type that can be casted to it implicitely.
   *
   * Params:
-  *   v = The value all dimensions will be set to
+  *   v = The value all components will be set to
   */
   void opAssign(T v)
   {
-    for (size_t i = 0; i < dim; i++)
-      this[i] = v;
+    static if (__traits(compiles, data = v))
+    {
+      data = v;
+    }
+    else
+    {
+      for (uint i = 0; i < dim; i++)
+        this[i] = v;
+    }
+
   }
   ///
   unittest
@@ -359,10 +401,10 @@ struct gvec(T, uint D)
 
   /**
   * Implements the assignment operator with an array of the type of the
-  * vector or a type that can be casted to it implicitely.
+  * vector (or a type that can be casted to it implicitely).
   *
   * Params:
-  *   v = The value all dimensions will be set to
+  *   v = The array containing the components
   */
   void opAssign(T[] v)
   {
@@ -374,6 +416,29 @@ struct gvec(T, uint D)
   {
     vec!2 a;
     a = [1, 2, 3];
+    assert(a[0] == 1 && a[1] == 2);
+  }
+
+  /**
+  * Implements the assignment operator with an array of the type of the
+  * vector (or a type that can be casted to it implicitely) and the same
+  * number of components.
+  *
+  * Params:
+  *   v = The array containing the components
+  */
+  void opAssign(T[D] v)
+  {
+    static if (simd)
+      this.data.array = v;
+    else
+      this.data = v;
+  }
+  ///
+  unittest
+  {
+    vec!2 a;
+    a = [1, 2];
     assert(a[0] == 1 && a[1] == 2);
   }
 
@@ -484,7 +549,16 @@ struct gvec(T, uint D)
   */
   void normalize()
   {
-    this /= this.length();
+    static if (__traits(isIntegral, T)) // pretty sure this isn't correct
+      this = this / cast(T)(ceil(this.length()));
+    else
+      this = this / this.length();
+  }
+  ///
+  unittest
+  {
+    vec!2 a = [1, 2];
+    a.normalize();
   }
 
   /**
@@ -492,7 +566,18 @@ struct gvec(T, uint D)
   */
   gvec!(T, D) normalized()
   {
-    return this.dup / this.length();
+    static if (__traits(isIntegral, T)) // pretty sure this isn't correct
+      return this.dup / cast(T)(ceil(this.length()));
+    else
+      return this.dup / cast(T)(this.length());
+  }
+  ///
+  unittest
+  {
+    vec!2 a = [1, 2];
+    vec!2 b = a;
+    b.normalize();
+    assert(a.normalized == b);
   }
 
   /**
@@ -505,6 +590,14 @@ struct gvec(T, uint D)
       l += this[i]^^2;
     return sqrt(l);
   }
+  ///
+  unittest
+  {
+    vec!2 a = [-1, 1];
+    assert(a.length == sqrt(cast(float)2));
+  }
+  /// Alias for length
+  alias mag = length;
 
   /**
   * Returns the squared length/magnitude of the vector.
@@ -516,35 +609,52 @@ struct gvec(T, uint D)
       l += this[i]^^2;
     return l;
   }
+  ///
+  unittest
+  {
+    vec!2 a = [-1, 1];
+    assert(a.length2 == 2);
+  }
+  /// Alias for length2
+  alias mag2 = length2;
 }
 
 /**
 * A vector of `bool`s.
 * Params:
-*   D = The number of dimensions/length of the vector
+*   D = The number of components of the vector
 */
 alias bvec(uint D) = gvec!(bool, D);
 /**
 * A vector of `int`s.
 * Params:
-*   D = The number of dimensions/length of the vector
+*   D = The number of components of the vector
 */
 alias ivec(uint D) = gvec!(int, D);
 /**
 * A vector of `uint`s.
 * Params:
-*   D = The number of dimensions/length of the vector
+*   D = The number of components of the vector
 */
 alias uvec(uint D) = gvec!(uint, D);
 /**
 * A vector of `float`s.
 * Params:
-*   D = The number of dimensions/length of the vector
+*   D = The number of components of the vector
 */
 alias vec(uint D) = gvec!(float, D);
 /**
 * A vector of `double`s.
 * Params:
-*   D = The number of dimensions/length of the vector
+*   D = The number of components of the vector
 */
 alias dvec(uint D) = gvec!(double, D);
+
+unittest
+{
+  bvec!1 ba; bvec!2 bb; bvec!3 bc; bvec!4 bd;
+  ivec!1 ia; ivec!2 ib; ivec!3 ic; ivec!4 id;
+  uvec!1 ua; uvec!2 ub; uvec!3 uc; uvec!4 ud;
+  vec!1 a; vec!2 b; vec!3 c; vec!4 d;
+  dvec!1 da; dvec!2 db; dvec!3 dc; dvec!4 dd;
+}

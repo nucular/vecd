@@ -588,7 +588,7 @@ struct gvec(T, uint D)
     double l = 0.0f;
     for (size_t i = 0; i < dim; i++)
       l += this[i]^^2;
-    return sqrt(l);
+    return sqrt(cast(double)l);
   }
   ///
   unittest
@@ -602,12 +602,16 @@ struct gvec(T, uint D)
   /**
   * Returns the squared length/magnitude of the vector.
   */
-  double length2()
+  T length2()
   {
-    double l = 0.0f;
+    static if (__traits(isIntegral, T)) // this is bad
+      int l = 0;
+    else
+      T l = 0;
+
     for (size_t i = 0; i < dim; i++)
       l += this[i]^^2;
-    return l;
+    return cast(T)l;
   }
   ///
   unittest
@@ -617,6 +621,31 @@ struct gvec(T, uint D)
   }
   /// Alias for length2
   alias mag2 = length2;
+
+  /**
+  * Returns the dot product of two vectors.
+  *
+  * Params:
+  *   that = Other vector
+  */
+  T dot(gvec!(T, D) that)
+  {
+    static if (__traits(isIntegral, T)) // this is bad
+      int d = 0;
+    else
+      T d = 0;
+
+    for (size_t i = 0; i < dim; i++)
+      d += this[i] * that[i];
+    return cast(T)d;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = [1, 3, -5];
+    vec!3 b = [4, -2, -1];
+    assert(a.dot(b) == 3);
+  }
 }
 
 /**

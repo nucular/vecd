@@ -646,6 +646,28 @@ struct gvec(T, uint D)
     vec!3 b = [4, -2, -1];
     assert(a.dot(b) == 3);
   }
+
+  /**
+  * Returns the cross product of two 3D vectors.
+  *
+  * Params:
+  *   that = Other vector
+  */
+  gvec!(T, D) cross(gvec!(T, D) that)
+  {
+    static if (D == 3)
+    {
+      return gvec!(T, D)([
+        cast(T)(this.y * that.z - this.z * that.y),
+        cast(T)(this.z * that.x - this.x * that.z),
+        cast(T)(this.x * that.y - this.y * that.x)
+      ]);
+    }
+    else
+    {
+      throw new NotSupportedError("Cross product");
+    }
+  }
 }
 
 /**

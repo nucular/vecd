@@ -57,18 +57,7 @@ $('#symbolSearchPane').show();
 										<code>this</code>
 									</a>
 								</td>
-								<td> Initialize the vector to an array of the same type with the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> as
- the vector.
-</td>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.this.html" class="public">
-										<code>this</code>
-									</a>
-								</td>
-								<td> Initialize the vector to an array of values up to either the <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the
- array or the number of components of the vector.
+								<td> Initialize all components of the vector to a value.
 </td>
 							</tr>
 							<tr>
@@ -87,7 +76,18 @@ $('#symbolSearchPane').show();
 										<code>this</code>
 									</a>
 								</td>
-								<td> Initialize all components of the vector to a value.
+								<td> Initialize the vector to an array of values up to either the <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the
+ array or the number of components of the vector.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize the vector to an array of the same type with the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> as
+ the vector.
 </td>
 							</tr>
 						</table>
@@ -165,11 +165,49 @@ $('#symbolSearchPane').show();
 							</tr>
 							<tr>
 								<td>
+									<a href="../vecd/gvec.opApply.html" class="public">
+										<code>opApply</code>
+									</a>
+								</td>
+								<td> Implements the apply operator for <code class="prettyprint lang-d">foreach</code> iteration with one parameter.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opApply.html" class="public">
+										<code>opApply</code>
+									</a>
+								</td>
+								<td> Implements the apply operator for <code class="prettyprint lang-d">foreach</code> iteration with two parameters.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opApplyReverse.html" class="public">
+										<code>opApplyReverse</code>
+									</a>
+								</td>
+								<td> Implements the apply operator for <code class="prettyprint lang-d">foreach_reverse</code> iteration with one
+ parameter.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.opApplyReverse.html" class="public">
+										<code>opApplyReverse</code>
+									</a>
+								</td>
+								<td> Implements the apply operator for <code class="prettyprint lang-d">foreach_reverse</code> iteration with two
+ parameters.
+</td>
+							</tr>
+							<tr>
+								<td>
 									<a href="../vecd/gvec.opAssign.html" class="public">
 										<code>opAssign</code>
 									</a>
 								</td>
-								<td> Implements the assignment operator with a value of the type of the
+								<td> Implements the assignment operator with a scalar of the type of the
  vector or a type that can be casted to it implicitely.
 </td>
 							</tr>
@@ -249,6 +287,15 @@ $('#symbolSearchPane').show();
 								<td>Alias for <a href="../vecd/gvec.length2.html"><code class="prettyprint lang-d">length2</code></a>
 </td>
 							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.xyz.html" class="public">
+										<code>xyz</code>
+									</a>
+								</td>
+								<td>Alias for <a href="../vecd/gvec.dup.html"><code class="prettyprint lang-d">dup</code></a>
+</td>
+							</tr>
 						</table>
 					</section>
 					<section>
@@ -274,7 +321,7 @@ $('#symbolSearchPane').show();
 										<code>opBinary</code>
 									</a>
 								</td>
-								<td> Implements all binary operators with a value of the type of the vector or a
+								<td> Implements all binary operators with a scalar of the type of the vector or a
  type that can be casted to it implicitely.
 </td>
 							</tr>
@@ -303,7 +350,7 @@ $('#symbolSearchPane').show();
 										<code>opOpAssign</code>
 									</a>
 								</td>
-								<td> Implements all op assignment operators with a value of the type of the
+								<td> Implements all op assignment operators with a scalar of the type of the
  vector or a type that can be casted to it implicitely.
 </td>
 							</tr>

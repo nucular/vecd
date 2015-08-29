@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>gvec.opBinary - multiple declarations</title>
+		<title>gvec.opApply - multiple declarations</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,100 +32,64 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>gvec.opBinary - multiple declarations</h1>
+			<h1>gvec.opApply - multiple declarations</h1>
 			<ul>
-				<li>Template gvec.opBinary</li>
-				<li>Template gvec.opBinary</li>
+				<li>Function gvec.opApply</li>
+				<li>Function gvec.opApply</li>
 			</ul>
 			<section>
-				<h2>Template gvec.opBinary</h2>
-				<p> Implements all binary operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> and type.
+				<h2>Function gvec.opApply</h2>
+				<p> Implements the apply operator for <code class="prettyprint lang-d">foreach</code> iteration with one parameter.
 </p>
 <section>
 </section>
 
 					<section>
-						<h2>Arguments</h2>
+						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
-template opBinary(string op);</pre>
-					</section>
-					<section>
-						<h3>Functions</h3>
-						<table>
-							<col class="caption"/>
-							<tr>
-								<th>Function name</th>
-								<th>Description</th>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.opBinary.opBinary.html">opBinary</a>
-								</td>
-								<td></td>
-							</tr>
-						</table>
+int opApply(
+&nbsp;&nbsp;int delegate(ref T) dg
+);</pre>
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="op">op</td><td> The operator</td></tr>
-<tr><td id="that">that</td><td> The second vector</td></tr>
+<tr><td id="dg">dg</td><td> The delegate that is applied</td></tr>
 </table>
 </section>
 <section><h3>Example</h3>
 
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [1, 2];
-<a href="../vecd/vec.html">vec</a>!2 b = [3, 4];
-assert(a + b == <a href="../vecd/vec.html">vec</a>!2([4, 6]));
-assert(a - b == <a href="../vecd/vec.html">vec</a>!2([-2, -2]));
-assert(a * b == <a href="../vecd/vec.html">vec</a>!2([3, 8]));
-assert(b / a == <a href="../vecd/vec.html">vec</a>!2([3, 2]));
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!3 a = [0, 0, 0];
+foreach (float v; a)
+  assert(v == 0);
 
 </pre>
 </section>
 
 			</section>
 			<section>
-				<h2>Template gvec.opBinary</h2>
-				<p> Implements all binary operators with a scalar of the type of the vector or a
- type that can be casted to it implicitely.
+				<h2>Function gvec.opApply</h2>
+				<p> Implements the apply operator for <code class="prettyprint lang-d">foreach</code> iteration with two parameters.
 </p>
 <section>
 </section>
 
 					<section>
-						<h2>Arguments</h2>
+						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
-template opBinary(string op);</pre>
-					</section>
-					<section>
-						<h3>Functions</h3>
-						<table>
-							<col class="caption"/>
-							<tr>
-								<th>Function name</th>
-								<th>Description</th>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.opBinary.opBinary.html">opBinary</a>
-								</td>
-								<td></td>
-							</tr>
-						</table>
+int opApply(
+&nbsp;&nbsp;int delegate(int, ref T) dg
+);</pre>
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="op">op</td><td> The operator</td></tr>
-<tr><td id="that">that</td><td> The scalar</td></tr>
+<tr><td id="dg">dg</td><td> The delegate that is applied</td></tr>
 </table>
 </section>
 <section><h3>Example</h3>
 
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [1, 2];
-assert(a + 2 == <a href="../vecd/vec.html">vec</a>!2([3, 4]));
-assert(a - 2 == <a href="../vecd/vec.html">vec</a>!2([-1, 0]));
-assert(a * 2 == <a href="../vecd/vec.html">vec</a>!2([2, 4]));
-assert(a / 2 == <a href="../vecd/vec.html">vec</a>!2([0.5, 1]));
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!3 a = [0, 1, 2];
+foreach (int i, float v; a)
+  assert(i == v);
 
 </pre>
 </section>

@@ -41,8 +41,7 @@ $('#symbolSearchPane').show();
 			</ul>
 			<section>
 				<h2>Function gvec.this</h2>
-				<p> Initialize the vector to an array of the same type with the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> as
- the vector.
+				<p> Initialize all components of the vector to a value.
 </p>
 <section>
 </section>
@@ -51,47 +50,18 @@ $('#symbolSearchPane').show();
 						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
 this(
-&nbsp;&nbsp;T[D] v
+&nbsp;&nbsp;T v
 );</pre>
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="v">v</td><td> The array of values</td></tr>
+<tr><td id="v">v</td><td> The value</td></tr>
 </table>
 </section>
 <section><h3>Example</h3>
 
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [-1, 1];
-assert(a[0] == -1 && a[1] == 1);
-
-</pre>
-</section>
-
-			</section>
-			<section>
-				<h2>Function gvec.this</h2>
-				<p> Initialize the vector to an array of values up to either the <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the
- array or the number of components of the vector.
-</p>
-<section>
-</section>
-
-					<section>
-						<h3>Prototype</h3>
-						<pre class="code prettyprint lang-d prototype">
-this(
-&nbsp;&nbsp;T[] v
-);</pre>
-					</section>
-<section><h3>Parameters</h3>
-<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="v">v</td><td> The array of values</td></tr>
-</table>
-</section>
-<section><h3>Example</h3>
-
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [-1, 1, 2];
-assert(a.dim == 2 && a[0] == -1 && a[1] == 1);
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = 1.5;
+assert(a[0] == 1.5 && a[1] == 1.5);
 
 </pre>
 </section>
@@ -129,7 +99,8 @@ assert(a == b);
 			</section>
 			<section>
 				<h2>Function gvec.this</h2>
-				<p> Initialize all components of the vector to a value.
+				<p> Initialize the vector to an array of values up to either the <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> of the
+ array or the number of components of the vector.
 </p>
 <section>
 </section>
@@ -138,18 +109,47 @@ assert(a == b);
 						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
 this(
-&nbsp;&nbsp;T v
+&nbsp;&nbsp;T[] v
 );</pre>
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="v">v</td><td> The value</td></tr>
+<tr><td id="v">v</td><td> The array of values</td></tr>
 </table>
 </section>
 <section><h3>Example</h3>
 
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = 1.5;
-assert(a[0] == 1.5 && a[1] == 1.5);
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [-1, 1, 2];
+assert(a.dim == 2 && a[0] == -1 && a[1] == 1);
+
+</pre>
+</section>
+
+			</section>
+			<section>
+				<h2>Function gvec.this</h2>
+				<p> Initialize the vector to an array of the same type with the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a> as
+ the vector.
+</p>
+<section>
+</section>
+
+					<section>
+						<h3>Prototype</h3>
+						<pre class="code prettyprint lang-d prototype">
+this(
+&nbsp;&nbsp;T[D] v
+);</pre>
+					</section>
+<section><h3>Parameters</h3>
+<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
+<tr><td id="v">v</td><td> The array of values</td></tr>
+</table>
+</section>
+<section><h3>Example</h3>
+
+<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!2 a = [-1, 1];
+assert(a[0] == -1 && a[1] == 1);
 
 </pre>
 </section>

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Function gvec.opIndexAssign</title>
+		<title>Alias gvec.xyz</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,39 +32,21 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>Function gvec.opIndexAssign</h1>
+			<h1>Alias gvec.xyz</h1>
 			<section>
-				<p> Implements the index assignment operator.
+				<p>Alias for <a href="../vecd/gvec.dup.html"><code class="prettyprint lang-d">dup</code></a>
 </p>
-<section>
-</section>
 
 					<section>
-						<h3>Prototype</h3>
+						<h3>Declaration</h3>
 						<pre class="code prettyprint lang-d prototype">
-T opIndexAssign(
-&nbsp;&nbsp;T v,
-&nbsp;&nbsp;size_t i
-);</pre>
+struct <a href="../vecd/gvec.html">gvec</a>
+{
+	// ...
+	alias xyz = <code class="prettyprint lang-d">dup</code>;
+	// ...
+}</pre>
 					</section>
-<section><h3>Parameters</h3>
-<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="v">v</td><td> The scalar</td></tr>
-<tr><td id="i">i</td><td> The index the value is assigned to</td></tr>
-</table>
-</section>
-<section><h3>Example</h3>
-
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!3 a;
-a[0] = 2;
-a[1] = 1;
-a[2] = 0;
-assert(a[0] == 2);
-assert(a[1] == 1);
-assert(a[2] == 0);
-
-</pre>
-</section>
 
 			</section>
 			<section>

@@ -58,6 +58,8 @@ struct gvec(T, uint D)
   /// Exposes the number of components of the vector.
   enum uint dim = D;
 
+  // TODO: Find a better way of doing multi-component swizzles
+
   /// The X-component of the vector.
   static if (D >= 1)
   {
@@ -69,12 +71,28 @@ struct gvec(T, uint D)
     /// The Y-component of the vector.
     @property y() { static if (simd) return data.array[1]; else return data[1]; }
     @property y(T v) { static if (simd) data.array[1] = v; else data[1] = v; }
+    @property xy() { return gvec!(T, 2)([this[0], this[1]]); }
+    @property xy(gvec!(T, 2) v) { this[0] = v[0]; this[1] = v[1]; }
+    @property xy(T[2] v) { this[0] = v[0]; this[1] = v[1]; }
+    @property xy(T v) { this[0] = v; this[1] = v; }
+    @property yx() { return gvec!(T, 2)([this[1], this[0]]); }
+    @property yx(gvec!(T, 2) v) { this[0] = v[1]; this[1] = v[0]; }
+    @property yx(T[2] v) { this[0] = v[1]; this[1] = v[0]; }
+    @property yx(T v) { this[0] = v; this[1] = v; }
   }
   static if (D >= 3)
   {
     /// The Z-component of the vector.
     @property z() { static if (simd) return data.array[2]; else return data[2]; }
     @property z(T v) { static if (simd) data.array[2] = v; else data[2] = v; }
+    @property xz() { return gvec!(T, 2)([this[0], this[2]]); }
+    @property xz(gvec!(T, 2) v) { this[0] = v[0]; this[2] = v[1]; }
+    @property xz(T[2] v) { this[0] = v[0]; this[2] = v[1]; }
+    @property xz(T v) { this[0] = v; this[2] = v; }
+    @property yz() { return gvec!(T, 2)([this[1], this[2]]); }
+    @property yz(gvec!(T, 2) v) { this[1] = v[0]; this[2] = v[1]; }
+    @property yz(T[2] v) { this[1] = v[0]; this[2] = v[1]; }
+    @property yz(T v) { this[1] = v; this[2] = v; }
   }
   static if (D >= 4)
   {
@@ -174,6 +192,8 @@ struct gvec(T, uint D)
       b[0] == 0 && b[1] == 2
     );
   }
+  /// Alias for dup
+  alias xyz = dup;
 
   /**
   * Implements all unary operators on a vector.
@@ -253,12 +273,12 @@ struct gvec(T, uint D)
   }
 
   /**
-  * Implements all binary operators with a value of the type of the vector or a
+  * Implements all binary operators with a scalar of the type of the vector or a
   * type that can be casted to it implicitely.
   *
   * Params:
   *   op = The operator
-  *   that = The second vector
+  *   that = The scalar
   */
   gvec!(T, D) opBinary(string op)(T that)
   {
@@ -333,12 +353,12 @@ struct gvec(T, uint D)
   }
 
   /**
-  * Implements all op assignment operators with a value of the type of the
+  * Implements all op assignment operators with a scalar of the type of the
   * vector or a type that can be casted to it implicitely.
   *
   * Params:
   *   op = The operator
-  *   that = The value
+  *   that = The scalar
   */
   gvec!(T, D) opOpAssign(string op)(T that)
   {
@@ -372,11 +392,11 @@ struct gvec(T, uint D)
   }
 
   /**
-  * Implements the assignment operator with a value of the type of the
+  * Implements the assignment operator with a scalar of the type of the
   * vector or a type that can be casted to it implicitely.
   *
   * Params:
-  *   v = The value all components will be set to
+  *   v = The scalar
   */
   void opAssign(T v)
   {
@@ -443,6 +463,120 @@ struct gvec(T, uint D)
   }
 
   /**
+  * Implements the apply operator for `foreach` iteration with one parameter.
+  *
+  * Params:
+  *   dg = The delegate that is applied
+  */
+  int opApply(int delegate(ref T) dg)
+  {
+    int result = 0;
+    for (uint i = 0; i < D; i++)
+    {
+      static if (simd)
+        result = dg(data.array[i]);
+      else
+        result = dg(data[i]);
+      if (result)
+        break;      
+    }
+    return result;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = [0, 0, 0];
+    foreach (float v; a)
+      assert(v == 0);
+  }
+
+  /**
+  * Implements the apply operator for `foreach_reverse` iteration with one
+  * parameter.
+  *
+  * Params:
+  *   dg = The delegate that is applied
+  */
+  int opApplyReverse(int delegate(ref T) dg)
+  {
+    int result = 0;
+    for (int i = D-1; i >= 0; i--)
+    {
+      static if (simd)
+        result = dg(data.array[i]);
+      else
+        result = dg(data[i]);
+      if (result)
+        break;      
+    }
+    return result;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = [0, 0, 0];
+    foreach_reverse (float v; a)
+      assert(v == 0);
+  }
+
+  /**
+  * Implements the apply operator for `foreach` iteration with two parameters.
+  *
+  * Params:
+  *   dg = The delegate that is applied
+  */
+  int opApply(int delegate(int, ref T) dg)
+  {
+    int result = 0;
+    for (int i = 0; i < D; i++)
+    {
+      static if (simd)
+        result = dg(i, data.array[i]);
+      else
+        result = dg(i, data[i]);
+      if (result)
+        break;      
+    }
+    return result;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = [0, 1, 2];
+    foreach (int i, float v; a)
+      assert(i == v);
+  }
+
+  /**
+  * Implements the apply operator for `foreach_reverse` iteration with two
+  * parameters.
+  *
+  * Params:
+  *   dg = The delegate that is applied
+  */
+  int opApplyReverse(int delegate(int, ref T) dg)
+  {
+    int result = 0;
+    for (int i = D-1; i >= 0; i--)
+    {
+      static if (simd)
+        result = dg(i, data.array[i]);
+      else
+        result = dg(i, data[i]);
+      if (result)
+        break;      
+    }
+    return result;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = [0, 1, 2];
+    foreach_reverse (int i, float v; a)
+      assert(i == v);
+  }
+
+  /**
   * Implements the index operator.
   *
   * Params:
@@ -470,7 +604,7 @@ struct gvec(T, uint D)
   * Implements the index assignment operator.
   *
   * Params:
-  *   v = The value
+  *   v = The scalar
   *   i = The index the value is assigned to
   */
   T opIndexAssign(T v, size_t i)

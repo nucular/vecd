@@ -15,6 +15,10 @@
 <url><loc>http://127.0.0.1/vecd/gvec.mag2.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.normalize.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.normalized.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opApply.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opApply.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opApplyReverse.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.opApplyReverse.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opAssign.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.opAssign.html</loc></url>
@@ -37,6 +41,7 @@
 <url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/gvec.this.html</loc></url>
+<url><loc>http://127.0.0.1/vecd/gvec.xyz.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/ivec.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/NotSupportedError.html</loc></url>
 <url><loc>http://127.0.0.1/vecd/uvec.html</loc></url>

@@ -11,6 +11,7 @@
 module vecd;
 public import core.simd;
 
+import std.format;
 import std.math;
 import std.traits;
 
@@ -42,18 +43,18 @@ class NotSupportedError : Error
 */
 struct gvec(T, uint D)
 {
-  mixin(
-    "static if (is("~T.stringof~D.stringof~"))\n"
-    ~ "{\n"
-    ~ "  " ~ T.stringof ~ D.stringof ~ " data;\n"
-    ~ "  enum bool simd = true;\n"
-    ~ "}\n"
-    ~ "else\n"
-    ~ "{\n"
-    ~ "  " ~ T.stringof ~ "[" ~ D.stringof ~ "] data;"
-    ~ "  enum bool simd = false;\n"
-    ~ "}"
-  );
+  mixin(q{
+    static if (is(%1$s%2$s))
+    {
+      %1$s%2$s data;
+      enum bool simd = true;
+    }
+    else
+    {
+      %1$s[%2$s] data;
+      enum bool simd = false;
+    }
+  }.format(T.stringof, D.stringof));
 
   /// Exposes the number of components of the vector.
   enum uint dim = D;
@@ -203,26 +204,26 @@ struct gvec(T, uint D)
   */
   gvec!(T, D) opUnary(string op)()
   {
-    mixin(
-      "static if (__traits(compiles, " ~ op ~ "data))\n"
-      ~ "{\n"
-      ~ "  return " ~ op ~ "data;\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, " ~ op ~ "data[]))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = " ~ op ~ "data[];\n"
-      ~ "  return gvec!(T, D)(tmp);\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, " ~ op ~ "data.array[]))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = " ~ op ~ "data.array[];\n"
-      ~ "  return gvec!(T, D)(tmp);\n"
-      ~ "}\n"
-      ~ "else\n"
-      ~ "{\n"
-      ~ "  throw new NotSupportedError(\"Unary \" ~ op ~ \" operator\");\n"
-      ~ "}"
-    );
+    mixin(q{
+      static if (__traits(compiles, %1$s data))
+      {
+        return %1$s data;
+      }
+      else static if (__traits(compiles, %1$s data[]))
+      {
+        T[D] tmp = %1$s data[];
+        return gvec!(T, D)(tmp);
+      }
+      else static if (__traits(compiles, %1$s data.array[]))
+      {
+        T[D] tmp = %1$s data.array[];
+        return gvec!(T, D)(tmp);
+      }
+      else
+      {
+        throw new NotSupportedError("Unary %1$s operator");
+      }
+    }.format(op));
   }
   ///
   unittest
@@ -240,26 +241,26 @@ struct gvec(T, uint D)
   */
   gvec!(T, D) opBinary(string op)(gvec!(T, D) that)
   {
-    mixin(
-      "static if (__traits(compiles, data " ~ op ~ " that.data))\n"
-      ~ "{\n"
-      ~ "  return gvec!(T, D)(data " ~ op ~ " that.data);\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that.data[]))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data[] " ~ op ~ " that.data[];\n"
-      ~ "  return gvec!(T, D)(tmp);\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that.data.array[]))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data.array[] " ~ op ~ " that.data.array[];\n"
-      ~ "  return gvec!(T, D)(tmp);\n"
-      ~ "}\n"
-      ~ "else\n"
-      ~ "{\n"
-      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
-      ~ "}"
-    );
+    mixin(q{
+      static if (__traits(compiles, data %1$s that.data))
+      {
+        return gvec!(T, D)(data %1$s that.data);
+      }
+      else static if (__traits(compiles, data[] %1$s that.data[]))
+      {
+        T[D] tmp = data[] %1$s that.data[];
+        return gvec!(T, D)(tmp);
+      }
+      else static if (__traits(compiles, data.array[] %1$s that.data.array[]))
+      {
+        T[D] tmp = data.array[] %1$s that.data.array[];
+        return gvec!(T, D)(tmp);
+      }
+      else
+      {
+        throw new NotSupportedError("Binary %1$s operator");
+      }
+    }.format(op));
   }
   ///
   unittest
@@ -282,26 +283,26 @@ struct gvec(T, uint D)
   */
   gvec!(T, D) opBinary(string op)(T that)
   {
-    mixin(
-      "static if (__traits(compiles, data " ~ op ~ " that))\n"
-      ~ "{\n"
-      ~ "  return gvec!(T, D)(data " ~ op ~ " that);\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data[] " ~ op ~ " that;\n"
-      ~ "  return gvec!(T, D)(tmp);\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data.array[] " ~ op ~ " that;\n"
-      ~ "  return gvec!(T, D)(tmp);\n"
-      ~ "}\n"
-      ~ "else\n"
-      ~ "{\n"
-      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
-      ~ "}"
-    );
+    mixin(q{
+      static if (__traits(compiles, data %1$s that))
+      {
+        return gvec!(T, D)(data %1$s that);
+      }
+      else static if (__traits(compiles, data[] %1$s that))
+      {
+        T[D] tmp = data[] %1$s that;
+        return gvec!(T, D)(tmp);
+      }
+      else static if (__traits(compiles, data.array[] %1$s that))
+      {
+        T[D] tmp = data.array[] %1$s that;
+        return gvec!(T, D)(tmp);
+      }
+      else
+      {
+        throw new NotSupportedError("Binary %1$s operator");
+      }
+    }.format(op));
   }
   ///
   unittest
@@ -323,26 +324,26 @@ struct gvec(T, uint D)
   */
   gvec!(T, D) opOpAssign(string op)(gvec!(T, D) that)
   {
-    mixin(
-      "static if (__traits(compiles, data " ~ op ~ " that.data))\n"
-      ~ "{\n"
-      ~ "  data = data " ~ op ~ " that.data;"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that.data[]))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data[] " ~ op ~ " that.data[];\n"
-      ~ "  data = tmp;\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that.data.array[]))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data.array[] " ~ op ~ " that.data.array[];\n"
-      ~ "  data.array = tmp;\n"
-      ~ "}\n"
-      ~ "else\n"
-      ~ "{\n"
-      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
-      ~ "}"
-    );
+    mixin(q{
+      static if (__traits(compiles, data %1$s that.data))
+      {
+        data = data %1$s that.data;
+      }
+      else static if (__traits(compiles, data[] %1$s that.data[]))
+      {
+        T[D] tmp = data[] %1$s that.data[];
+        data = tmp;
+      }
+      else static if (__traits(compiles, data.array[] %1$s that.data.array[]))
+      {
+        T[D] tmp = data.array[] %1$s that.data.array[];
+        data.array = tmp;
+      }
+      else
+      {
+        throw new NotSupportedError("Binary %1$s operator");
+      }
+    }.format(op));
     return this;
   }
   unittest
@@ -362,26 +363,26 @@ struct gvec(T, uint D)
   */
   gvec!(T, D) opOpAssign(string op)(T that)
   {
-    mixin(
-      "static if (__traits(compiles, data " ~ op ~ " that))\n"
-      ~ "{\n"
-      ~ "  data = data " ~ op ~ " that;"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data[] " ~ op ~ " that))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data[] " ~ op ~ " that;\n"
-      ~ "  data = tmp;\n"
-      ~ "}\n"
-      ~ "else static if (__traits(compiles, data.array[] " ~ op ~ " that))\n"
-      ~ "{\n"
-      ~ "  T[D] tmp = data.array[] " ~ op ~ " that;\n"
-      ~ "  data.array = tmp;\n"
-      ~ "}\n"
-      ~ "else\n"
-      ~ "{\n"
-      ~ "  throw new NotSupportedError(\"Binary \" ~ op ~ \" operator\");\n"
-      ~ "}"
-    );
+    mixin(q{
+      static if (__traits(compiles, data %1$s that))
+      {
+        data = data %1$s that;
+      }
+      else static if (__traits(compiles, data[] %1$s that))
+      {
+        T[D] tmp = data[] %1$s that;
+        data = tmp;
+      }
+      else static if (__traits(compiles, data.array[] %1$s that))
+      {
+        T[D] tmp = data.array[] %1$s that;
+        data.array = tmp;
+      }
+      else
+      {
+        throw new NotSupportedError("Binary %1$s operator");
+      }
+    }.format(op));
     return this;
   }
   unittest

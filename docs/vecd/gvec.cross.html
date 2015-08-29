@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>Function gvec.dot</title>
+		<title>Function gvec.cross</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,9 +32,9 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>Function gvec.dot</h1>
+			<h1>Function gvec.cross</h1>
 			<section>
-				<p> Returns the <code class="prettyprint lang-d">dot</code> product of two vectors.
+				<p> Returns the <code class="prettyprint lang-d">cross</code> product of two 3D vectors.
 </p>
 <section>
 </section>
@@ -42,7 +42,7 @@ $('#symbolSearchPane').show();
 					<section>
 						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
-T dot(
+<a href="../vecd/gvec.html">gvec</a>!(T,D) cross(
 &nbsp;&nbsp;<a href="../vecd/gvec.html">gvec</a>!(T,D) that
 );</pre>
 					</section>
@@ -50,14 +50,6 @@ T dot(
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
 <tr><td id="that">that</td><td> Other vector</td></tr>
 </table>
-</section>
-<section><h3>Example</h3>
-
-<pre class="code prettyprint lang-d"><a href="../vecd/vec.html">vec</a>!3 a = [1, 3, -5];
-<a href="../vecd/vec.html">vec</a>!3 b = [4, -2, -1];
-assert(a.dot(b) == 3);
-
-</pre>
 </section>
 
 			</section>

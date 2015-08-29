@@ -4,6 +4,7 @@ var symbols = [
 {name: 'vecd.bvec', kind: "aliasdeclaration", path: './vecd/bvec.html', attributes: []},
 {name: 'vecd.dvec', kind: "aliasdeclaration", path: './vecd/dvec.html', attributes: []},
 {name: 'vecd.gvec', kind: "structdeclaration", path: './vecd/gvec.html', attributes: []},
+{name: 'vecd.gvec.cross', kind: "functiondeclaration", path: './vecd/gvec.cross.html', attributes: []},
 {name: 'vecd.gvec.dim', kind: "enummemberdeclaration", path: './vecd/gvec.dim.html', attributes: []},
 {name: 'vecd.gvec.dot', kind: "functiondeclaration", path: './vecd/gvec.dot.html', attributes: []},
 {name: 'vecd.gvec.dup', kind: "functiondeclaration", path: './vecd/gvec.dup.html', attributes: []},

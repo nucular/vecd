@@ -103,10 +103,27 @@ struct gvec(T, uint D)
   }
 
   /**
-  * Initialize all components of the vector to a value.
+  * Initialize the components of the vector to multiple scalars using varargs.
   *
   * Params:
-  *   v = The value
+  *   vs = The scalars
+  */
+  this(T[] vs ...)
+  {
+    this = vs;
+  }
+  ///
+  unittest
+  {
+    vec!3 a = vec!3(1, 2, 3);
+    assert(a[0] == 1 && a[1] == 2 && a[2] == 3);
+  }
+
+  /**
+  * Initialize all components of the vector to a scalar.
+  *
+  * Params:
+  *   v = The scalar
   */
   this(T v)
   {
@@ -120,13 +137,12 @@ struct gvec(T, uint D)
   }
 
   /**
-  * Initialize the vector to an array of the same type with the same length as
-  * the vector.
+  * Initialize the vector to an array of the same type as the vector.
   *
   * Params:
   *   v = The array of values
   */
-  this(T[D] v)
+  this(T[] v)
   {
     this = v;
   }
@@ -135,24 +151,8 @@ struct gvec(T, uint D)
   {
     vec!2 a = [-1, 1];
     assert(a[0] == -1 && a[1] == 1);
-  }
-
-  /**
-  * Initialize the vector to an array of values up to either the length of the
-  * array or the number of components of the vector.
-  *
-  * Params:
-  *   v = The array of values
-  */
-  this(T[] v)
-  {
-    this = v[0..D];
-  }
-  ///
-  unittest
-  {
-    vec!2 a = [-1, 1, 2];
-    assert(a.dim == 2 && a[0] == -1 && a[1] == 1);
+    vec!2 b = [-1, 1, 2];
+    assert(b.dim == 2 && b[0] == -1 && b[1] == 1);
   }
 
   /**

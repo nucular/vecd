@@ -57,26 +57,8 @@ $('#symbolSearchPane').show();
 										<code>this</code>
 									</a>
 								</td>
-								<td> Initialize the components of the vector to multiple scalars using varargs.
-</td>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.this.html" class="public">
-										<code>this</code>
-									</a>
-								</td>
 								<td> Initialize the vector to the contents of another vector of the same type
  and size.
-</td>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.this.html" class="public">
-										<code>this</code>
-									</a>
-								</td>
-								<td> Initialize the vector to an array of the same type as the vector.
 </td>
 							</tr>
 							<tr>
@@ -88,6 +70,24 @@ $('#symbolSearchPane').show();
 								<td> Initialize all components of the vector to a scalar.
 </td>
 							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize the components of the vector to multiple scalars using varargs.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.this.html" class="public">
+										<code>this</code>
+									</a>
+								</td>
+								<td> Initialize the vector to an array of the same type as the vector.
+</td>
+							</tr>
 						</table>
 					</section>
 					<section>
@@ -97,6 +97,24 @@ $('#symbolSearchPane').show();
 							<tr>
 								<th>Name</th>
 								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.clamp.html" class="public">
+										<code>clamp</code>
+									</a>
+								</td>
+								<td> Clamps all components of the vector between two values in-place.
+</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.clamped.html" class="public">
+										<code>clamped</code>
+									</a>
+								</td>
+								<td> Returns a copy of the vector <code class="prettyprint lang-d">clamped</code> between two values.
+</td>
 							</tr>
 							<tr>
 								<td>
@@ -257,6 +275,15 @@ $('#symbolSearchPane').show();
 								<td> Implements the index assignment operator.
 </td>
 							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.toString.html" class="public">
+										<code>toString</code>
+									</a>
+								</td>
+								<td> Implements a conversion from vector to string.
+</td>
+							</tr>
 						</table>
 					</section>
 					<section>
@@ -285,15 +312,6 @@ $('#symbolSearchPane').show();
 								<td>Alias for <a href="../vecd/gvec.length2.html"><code class="prettyprint lang-d">length2</code></a>
 </td>
 							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.xyz.html" class="public">
-										<code>xyz</code>
-									</a>
-								</td>
-								<td>Alias for <a href="../vecd/gvec.dup.html"><code class="prettyprint lang-d">dup</code></a>
-</td>
-							</tr>
 						</table>
 					</section>
 					<section>
@@ -303,6 +321,15 @@ $('#symbolSearchPane').show();
 							<tr>
 								<th>Name</th>
 								<th>Description</th>
+							</tr>
+							<tr>
+								<td>
+									<a href="../vecd/gvec.ccast.html" class="public">
+										<code>ccast</code>
+									</a>
+								</td>
+								<td> Casts all components of the vector to a type and returns the new vector.
+</td>
 							</tr>
 							<tr>
 								<td>
@@ -338,8 +365,8 @@ $('#symbolSearchPane').show();
 										<code>opOpAssign</code>
 									</a>
 								</td>
-								<td> Implements all op assignment operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
- and type.
+								<td> Implements all op assignment operators with a scalar of the type of the
+ vector or a type that can be casted to it implicitely.
 </td>
 							</tr>
 							<tr>
@@ -348,8 +375,8 @@ $('#symbolSearchPane').show();
 										<code>opOpAssign</code>
 									</a>
 								</td>
-								<td> Implements all op assignment operators with a scalar of the type of the
- vector or a type that can be casted to it implicitely.
+								<td> Implements all op assignment operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
+ and type.
 </td>
 							</tr>
 							<tr>

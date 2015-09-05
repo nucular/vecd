@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8"/>
-		<title>gvec.opOpAssign - multiple declarations</title>
+		<title>Function gvec.clamp</title>
 		<link rel="stylesheet" type="text/css" href="../styles/ddox.css"/>
 		<link rel="stylesheet" href="../prettify/prettify.css" type="text/css"/>
 		<script type="text/javascript" src="../scripts/jquery.js">/**/</script>
@@ -32,81 +32,25 @@ $('#symbolSearchPane').show();
 				</div>
 		</nav>
 		<div id="main-contents">
-			<h1>gvec.opOpAssign - multiple declarations</h1>
-			<ul>
-				<li>Template gvec.opOpAssign</li>
-				<li>Template gvec.opOpAssign</li>
-			</ul>
+			<h1>Function gvec.clamp</h1>
 			<section>
-				<h2>Template gvec.opOpAssign</h2>
-				<p> Implements all op assignment operators with a scalar of the type of the
- vector or a type that can be casted to it implicitely.
+				<p> Clamps all components of the vector between two values in-place.
 </p>
 <section>
 </section>
 
 					<section>
-						<h2>Arguments</h2>
+						<h3>Prototype</h3>
 						<pre class="code prettyprint lang-d prototype">
-template opOpAssign(string op);</pre>
-					</section>
-					<section>
-						<h3>Functions</h3>
-						<table>
-							<col class="caption"/>
-							<tr>
-								<th>Function name</th>
-								<th>Description</th>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.opOpAssign.opOpAssign.html">opOpAssign</a>
-								</td>
-								<td></td>
-							</tr>
-						</table>
+void clamp(
+&nbsp;&nbsp;T lower,
+&nbsp;&nbsp;T upper
+);</pre>
 					</section>
 <section><h3>Parameters</h3>
 <table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="op">op</td><td> The operator</td></tr>
-<tr><td id="that">that</td><td> The scalar</td></tr>
-</table>
-</section>
-
-			</section>
-			<section>
-				<h2>Template gvec.opOpAssign</h2>
-				<p> Implements all op assignment operators on two vectors of the same <a href="../vecd/gvec.length.html"><code class="prettyprint lang-d">length</code></a>
- and type.
-</p>
-<section>
-</section>
-
-					<section>
-						<h2>Arguments</h2>
-						<pre class="code prettyprint lang-d prototype">
-template opOpAssign(string op);</pre>
-					</section>
-					<section>
-						<h3>Functions</h3>
-						<table>
-							<col class="caption"/>
-							<tr>
-								<th>Function name</th>
-								<th>Description</th>
-							</tr>
-							<tr>
-								<td>
-									<a href="../vecd/gvec.opOpAssign.opOpAssign.html">opOpAssign</a>
-								</td>
-								<td></td>
-							</tr>
-						</table>
-					</section>
-<section><h3>Parameters</h3>
-<table><col class="caption"><tr><th>Name</th><th>Description</th></tr>
-<tr><td id="op">op</td><td> The operator</td></tr>
-<tr><td id="that">that</td><td> The second vector</td></tr>
+<tr><td id="lower">lower</td><td> The <a href="../vecd/gvec.clamp.html#lower"><code class="prettyprint lang-d">lower</code></a> bound</td></tr>
+<tr><td id="upper">upper</td><td> The <a href="../vecd/gvec.clamp.html#upper"><code class="prettyprint lang-d">upper</code></a> bound</td></tr>
 </table>
 </section>
 

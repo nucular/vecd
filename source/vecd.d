@@ -86,6 +86,10 @@ struct gvec(T, uint D)
     /// The Z-component of the vector.
     @property z() { static if (simd) return data.array[2]; else return data[2]; }
     @property z(T v) { static if (simd) data.array[2] = v; else data[2] = v; }
+    @property xyz() { return gvec!(T, 3)([this[0], this[1], this[2]]); }
+    @property xyz(gvec!(T, 3) v) { this[0] = v[0]; this[1] = v[1]; this[2] = v[2]; }
+    @property xyz(T[3] v) { this[0] = v[0]; this[1] = v[1]; this[2] = v[2]; }
+    @property xyz(T v) { this[0] = v; this[1] = v; this[2] = v; }
     @property xz() { return gvec!(T, 2)([this[0], this[2]]); }
     @property xz(gvec!(T, 2) v) { this[0] = v[0]; this[2] = v[1]; }
     @property xz(T[2] v) { this[0] = v[0]; this[2] = v[1]; }
@@ -193,8 +197,6 @@ struct gvec(T, uint D)
       b[0] == 0 && b[1] == 2
     );
   }
-  /// Alias for dup
-  alias xyz = dup;
 
   /**
   * Implements all unary operators on a vector.
@@ -663,8 +665,8 @@ struct gvec(T, uint D)
     assert(a[$-2] == 2);
     assert(a[$-3] == 3);
   }
-
-  /*
+  
+  /**
   * Implements a conversion from vector to string.
   */
   string toString()
@@ -677,6 +679,20 @@ struct gvec(T, uint D)
   {
     vec!4 a = [1, 3, 3, 7];
     assert(a.toString() == "[1, 3, 3, 7]");
+  }
+
+  /**
+  * Casts all components of the vector to a type and returns the new vector.
+  *
+  * Params:
+  *   NT = The type of the new vector
+  */
+  gvec!(NT, D) ccast(NT)()
+  {
+    gvec!(NT, D) nv;
+    for (uint i = 0; i < dim; i++)
+      nv[i] = cast(NT)(this[i]);
+    return nv;
   }
 
   /**
@@ -802,6 +818,40 @@ struct gvec(T, uint D)
     {
       throw new NotSupportedError("Cross product");
     }
+  }
+
+  /**
+  * Clamps all components of the vector between two values in-place.
+  *
+  * Params:
+  *   lower = The lower bound
+  *   upper = The upper bound
+  */
+  void clamp(T lower, T upper)
+  {
+    for (size_t i = 0; i < dim; i++)
+    {
+      T a = this[i] < lower ? lower : this[i];
+      this[i] = a > upper ? upper : a;
+    }
+  }
+
+  /**
+  * Returns a copy of the vector clamped between two values.
+  *
+  * Params:
+  *   lower = The lower bound
+  *   upper = The upper bound
+  */
+  gvec!(T, D) clamped(T lower, T upper)
+  {
+    gvec!(T, D) n = this;
+    for (size_t i = 0; i < dim; i++)
+    {
+      T a = n[i] < lower ? lower : n[i];
+      n[i] = a > upper ? upper : a;
+    }
+    return n;
   }
 }
 
